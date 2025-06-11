@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katilo Factory App Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* White background as requested */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .phone-mockup {
+            width: 320px; /* Standard phone width */
+            height: 640px; /* Standard phone height */
+            background-color: #333;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden; /* Hide anything outside the phone screen */
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0; /* Light screen background */
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .notch {
+            width: 100px;
+            height: 20px;
+            background-color: #333;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .feature-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer; /* Change cursor to pointer to indicate interactivity */
+        }
+
+        .feature-circle:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns for features */
+            gap: 15px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            max-width: 300px; /* Constrain grid width within screen */
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-flow-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .modal-flow-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-flow-list li {
+            background-color: #f8f8f8;
+            border-left: 4px solid #6366f1; /* Indigo color for flow steps */
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            color: #333;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .modal-flow-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Arabic text styling */
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+            .phone-mockup {
+                margin-top: 20px;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-title {
+                font-size: 1.75rem;
+            }
+            .modal-close {
+                font-size: 1.5rem;
+                top: 10px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container flex flex-col md:flex-row items-center justify-center p-8 bg-white rounded-xl shadow-2xl">
+        <div class="info-section text-center md:text-left md:mr-12 mb-8 md:mb-0">
+            <!-- Katilo Factory Logo -->
+            <img src="mainlogo.png" alt="Katilo Factory Logo" class="mx-auto md:mx-0 mb-4 w-48 h-auto rounded-lg">
+            <h1 class="text-5xl font-extrabold text-blue-800 mb-4">Katilo Factory App</h1>
+            <p class="text-xl text-gray-700 mb-6">A seamless solution for dairy product orders and customer engagement.</p>
+            <p class="text-lg font-medium text-purple-700">Created by <span class="font-bold">Ahmed Mohamed Fekry Bagha</span></p>
+        </div>
+
+        <div class="phone-mockup">
+            <div class="notch"></div>
+            <div class="screen">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">App Features</h2>
+                <div class="feature-grid">
+                    <!-- Branch Features -->
+                    <div class="feature-circle bg-red-500" data-feature="Weekly Orders">Weekly Orders</div>
+                    <div class="feature-circle bg-green-500" data-feature="Product Details">Product Details</div>
+                    <div class="feature-circle bg-yellow-500" data-feature="Branch Tracking">Branch Tracking</div>
+                    <div class="feature-circle bg-blue-500" data-feature="PDF Receipts">PDF Receipts</div>
+
+                    <!-- Customer Features -->
+                    <div class="feature-circle bg-purple-500" data-feature="Product Browsing">Product Browsing</div>
+                    <div class="feature-circle bg-indigo-500" data-feature="Order Placement">Order Placement</div>
+                    <div class="feature-circle bg-pink-500" data-feature="Cash/Visa Pay">Cash/Visa Pay</div>
+                    <div class="feature-circle bg-teal-500" data-feature="Item Returns">Item Returns</div>
+                    <div class="feature-circle bg-orange-500" data-feature="Chatbot Support">Chatbot Support</div>
+                    <!-- New About Info Feature -->
+                    <div class="feature-circle bg-lime-500" data-feature="About Info">About Info</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Details Modal -->
+    <div id="featureModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modalTitle" class="modal-title"></h3>
+            <p id="modalDescription" class="modal-description"></p>
+            <h4 id="modalFlowTitle" class="modal-flow-title"></h4>
+            <ul id="modalFlowList" class="modal-flow-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Data for each feature, including description and user flow
+        const featureDetails = {
+            "Weekly Orders": {
+                description: "Allows branches to place their weekly product orders directly with the main factory.",
+                flow: [
+                    "Log in using branch credentials.",
+                    "Browse the product catalog or select items for weekly orders.",
+                    "Submit the order to the main branch.",
+                    "Access other general support features as needed (e.g., chatbot, return page)."
+                ],
+                userType: "Branch User Flow"
+            },
+            "Product Details": {
+                description: "Branches can view comprehensive details and specifications for all available dairy products.",
+                flow: [
+                    "Log in using branch credentials.",
+                    "Navigate to the product catalog section.",
+                    "Select any product to view its detailed information (e.g., ingredients, pricing, availability).",
+                    "Access other general support features as needed (e.g., chatbot, return page)."
+                ],
+                userType: "Branch User Flow"
+            },
+            "Branch Tracking": {
+                description: "Enables branches to view their location on an integrated map, facilitating logistics and coordination with the main factory.",
+                flow: [
+                    "Log in using branch credentials.",
+                    "Access the map feature within the app.",
+                    "View current branch location and track delivery routes.",
+                    "Access other general support features as needed (e.g., chatbot, return page)."
+                ],
+                userType: "Branch User Flow"
+            },
+            "PDF Receipts": {
+                description: "Provides branches with the ability to download PDF receipts for their submitted weekly orders, essential for record-keeping and delivery reference.",
+                flow: [
+                    "Log in using branch credentials.",
+                    "After submitting an order, locate the order history or receipt section.",
+                    "Download the PDF receipt for the desired order.",
+                    "Access other general support features as needed (e.g., chatbot, return page)."
+                ],
+                userType: "Branch User Flow"
+            },
+            "Product Browsing": {
+                description: "Regular customers can easily browse the entire catalog of Katilo factory's dairy products, viewing images, descriptions, and prices.",
+                flow: [
+                    "Log in using user credentials (or proceed as a guest).",
+                    "Navigate through various product categories or use the search function.",
+                    "View detailed information for each product.",
+                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                ],
+                userType: "Regular User Flow"
+            },
+            "Order Placement": {
+                description: "Allows regular customers to seamlessly place orders for their selected products, specifying quantities and delivery preferences.",
+                flow: [
+                    "Log in using user credentials.",
+                    "Browse products and add desired items with quantities to the shopping cart.",
+                    "Proceed to checkout to review the order.",
+                    "Confirm the order and receive a receipt for delivery reference.",
+                    "Track order status in real-time.",
+                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                ],
+                userType: "Regular User Flow"
+            },
+            "Cash/Visa Pay": {
+                description: "Offers flexible and secure payment options for regular customers, including convenient cash on delivery or online payment via Visa.",
+                flow: [
+                    "During the order confirmation process, select your preferred payment method.",
+                    "If paying by card, securely enter your Visa details.",
+                    "Complete the payment to finalize your order.",
+                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                ],
+                userType: "Regular User Flow"
+            },
+            "Item Returns": {
+                description: "Simplifies the return process for regular customers, allowing them to initiate returns for purchased items directly through the app.",
+                flow: [
+                    "Access the dedicated 'Returns' page or section in the app.",
+                    "Select the item(s) you wish to return and provide a reason.",
+                    "Follow the app's instructions to complete the return request (e.g., schedule pickup, generate return label).",
+                    "Access other general support features as needed (e.g., branch locator, chatbot, about page)."
+                ],
+                userType: "Regular User Flow (or Branch User Flow for general access)"
+            },
+            "Chatbot Support": {
+                description: "Provides instant customer support and answers to common queries through an intelligent, user-friendly chatbot available to both branches and regular customers.",
+                flow: [
+                    "Access the 'Chatbot Support' feature from the main menu or relevant sections.",
+                    "Type your question or select from pre-defined topics.",
+                    "Receive immediate, automated assistance.",
+                    "If needed, the chatbot can direct you to further support.",
+                    "Access other general support features as needed (e.g., branch locator, return page, about page)."
+                ],
+                userType: "Both User Flows"
+            },
+            "About Info": {
+                description: `
+                    <p class="rtl-text"><strong>مصنع كاتيلو لمنتجات الألبان:</strong></p>
+                    <p class="rtl-text">نحن مصنع كاتيلو، رائدون في إنتاج وتوزيع منتجات الألبان الطازجة وعالية الجودة. نلتزم بتقديم أفضل المنتجات لعملائنا من خلال استخدام أجود المكونات وأحدث تقنيات الإنتاج.</p>
+                    <p class="rtl-text">يهدف تطبيقنا إلى تسهيل عملية الطلبات بين المصنع والفروع، بالإضافة إلى توفير تجربة تسوق سلسة ومريحة لعملائنا الكرام. يمكنك من خلال التطبيق تصفح منتجاتنا، تقديم الطلبات، تتبعها، والحصول على الدعم الفني بكل سهولة.</p>
+                    <p class="rtl-text">نحن نسعى دائمًا للابتكار وتحسين خدماتنا لضمان رضا جميع المستخدمين.</p>
+                `,
+                flow: [
+                    "Access the 'About Info' feature from the app's main menu or footer.",
+                    "Read information about Katilo Factory's mission, products, and commitment to quality.",
+                    "Learn about the factory's history and values.",
+                    "Return to the main features or continue browsing the app."
+                ],
+                userType: "General Information"
+            }
+        };
+
+        const featureCircles = document.querySelectorAll('.feature-circle');
+        const featureModal = document.getElementById('featureModal');
+        const modalCloseBtn = document.querySelector('.modal-close');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalFlowTitle = document.getElementById('modalFlowTitle');
+        const modalFlowList = document.getElementById('modalFlowList');
+
+        // Add event listeners to each feature circle
+        featureCircles.forEach(circle => {
+            circle.addEventListener('click', () => {
+                const featureName = circle.dataset.feature; // Get the feature name from data-feature attribute
+                const details = featureDetails[featureName];
+
+                if (details) {
+                    modalTitle.textContent = featureName;
+                    // For the Arabic description, set innerHTML directly and add the RTL class
+                    if (featureName === "About Info") {
+                        modalDescription.innerHTML = details.description;
+                        modalDescription.classList.add('rtl-text');
+                    } else {
+                        modalDescription.textContent = details.description;
+                        modalDescription.classList.remove('rtl-text');
+                    }
+
+                    modalFlowTitle.textContent = `User Flow: (${details.userType})`;
+
+                    // Clear previous flow items
+                    modalFlowList.innerHTML = '';
+                    // Populate new flow items
+                    details.flow.forEach(step => {
+                        const li = document.createElement('li');
+                        li.textContent = step;
+                        modalFlowList.appendChild(li);
+                    });
+
+                    // Show the modal
+                    featureModal.classList.add('active');
+                }
+            });
+        });
+
+        // Close modal when close button is clicked
+        modalCloseBtn.addEventListener('click', () => {
+            featureModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside the content
+        featureModal.addEventListener('click', (event) => {
+            if (event.target === featureModal) {
+                featureModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
