@@ -4,110 +4,378 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katilo Factory App Showcase</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* White background as requested */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        .phone-mockup {
-            width: 320px; /* Standard phone width */
-            height: 640px; /* Standard phone height */
-            background-color: #333;
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a2a3a, #0d1b2a);
+            color: #e0e7ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
             position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 20%), 
+                        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 20%);
+            z-index: -1;
+            animation: gradientShift 12s infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 10% 20%, 90% 80%; }
+            100% { background-position: 15% 25%, 85% 75%; }
+        }
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            overflow: hidden; /* Hide anything outside the phone screen */
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            padding: 1rem 0 2rem;
+            width: 100%;
+        }
+
+        .logo-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+background: linear-gradient(145deg, rgba(13, 77, 164, 0.1), rgba(13, 77, 164, 0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2), 0 8px 10px -6px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 70%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #e0e7ff, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-top: 1rem;
+        }
+
+        .tagline span {
+            font-weight: 600;
+            color: #a5b4fc;
+        }
+
+        .phone-section {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            margin-bottom: 2rem;
+        }
+
+        .phone-mockup {
+            width: 100%;
+            height: 700px;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 40px;
+            padding: 14px;
+            position: relative;
+            box-shadow: 0 30px 60px -10px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            overflow: hidden;
+            margin: 0 auto;
         }
 
         .screen {
             width: 100%;
             height: 100%;
-            background-color: #f0f0f0; /* Light screen background */
-            border-radius: 30px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 32px;
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
         .notch {
-            width: 100px;
-            height: 20px;
-            background-color: #333;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            width: 160px;
+            height: 26px;
+            background: #0f172a;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
             position: absolute;
-            top: 10px;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
         }
 
-        .feature-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+        .app-header {
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            padding: 1.5rem 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-subtitle {
+            color: #e0e7ff;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .features-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 0.9rem;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .app-feature {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out;
-            cursor: pointer; /* Change cursor to pointer to indicate interactivity */
+            justify-content: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: 0.8rem;
         }
 
-        .feature-circle:hover {
+        .app-feature:hover {
             transform: translateY(-5px);
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
+            border-color: rgba(139, 92, 246, 0.4);
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two columns for features */
-            gap: 15px;
+        .app-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            max-width: 300px; /* Constrain grid width within screen */
+            height: 4px;
+            background: linear-gradient(to right, var(--feature-color), transparent);
         }
 
-        /* Modal Styles */
+        .app-feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background: var(--feature-bg);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .app-feature-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            color: #e0e7ff;
+            padding: 0 0.5rem;
+        }
+
+        .app-footer {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.8rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .features-section {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 24px;
+            padding: 2.5rem;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2), 0 8px 10px -6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #e0e7ff;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--feature-color);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--feature-bg);
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e0e7ff;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: var(--gray-300);
+            line-height: 1.6;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: rgba(15, 23, 42, 0.97);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .modal-overlay.active {
@@ -116,150 +384,489 @@
         }
 
         .modal-content {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 24px;
             width: 90%;
             max-width: 500px;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
             transform: scale(0.9);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
         }
 
         .modal-overlay.active .modal-content {
             transform: scale(1);
         }
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: #333;
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .modal-title {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-title i {
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        .modal-close {
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
         }
 
         .modal-description {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
         }
 
-        .modal-flow-title {
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #444;
-            margin-bottom: 10px;
+            color: #a5b4fc;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #4f46e5;
         }
 
-        .modal-flow-list {
+        .flow-list {
             list-style: none;
             padding-left: 0;
         }
 
-        .modal-flow-list li {
-            background-color: #f8f8f8;
-            border-left: 4px solid #6366f1; /* Indigo color for flow steps */
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 5px;
-            color: #333;
-            font-size: 0.95rem;
-            line-height: 1.4;
+        .flow-list li {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 0.75rem;
+            border-radius: 12px;
+            position: relative;
+            border-left: 4px solid #4f46e5;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
         }
 
-        .modal-flow-list li:last-child {
-            margin-bottom: 0;
+        .flow-list li:hover {
+            transform: translateX(5px);
         }
 
-        /* Arabic text styling */
+        .flow-number {
+            font-weight: 700;
+            color: #4f46e5;
+            min-width: 28px;
+            height: 28px;
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .flow-text {
+            flex: 1;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
         .rtl-text {
             direction: rtl;
             text-align: right;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid #ec4899;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                flex-direction: column;
+        .rtl-text p {
+            margin-bottom: 1rem;
+        }
+
+        .rtl-text strong {
+            color: #f0abfc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
             }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
             .phone-mockup {
-                margin-top: 20px;
+                height: 650px;
             }
-            .modal-content {
-                padding: 20px;
+            
+            .features-container {
+                padding: 1rem;
+                gap: 0.7rem;
             }
-            .modal-title {
-                font-size: 1.75rem;
+            
+            .app-feature-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
             }
-            .modal-close {
+            
+            .app-feature-name {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .phone-mockup {
+                height: 600px;
+                padding: 10px;
+            }
+            
+            .app-header {
+                padding: 1.2rem 1rem 0.8rem;
+            }
+            
+            .app-title {
                 font-size: 1.5rem;
-                top: 10px;
-                right: 15px;
+            }
+            
+            .app-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .features-container {
+                padding: 0.8rem;
+                gap: 0.6rem;
+            }
+            
+            .app-feature {
+                padding: 0.6rem;
+            }
+            
+            .app-feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .app-feature-name {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container flex flex-col md:flex-row items-center justify-center p-8 bg-white rounded-xl shadow-2xl">
-        <div class="info-section text-center md:text-left md:mr-12 mb-8 md:mb-0">
-            <!-- Katilo Factory Logo -->
-            <img src="mainlogo.png" alt="Katilo Factory Logo" class="mx-auto md:mx-0 mb-4 w-48 h-auto rounded-lg">
-            <h1 class="text-5xl font-extrabold text-blue-800 mb-4">Katilo Factory App</h1>
-            <p class="text-xl text-gray-700 mb-6">A seamless solution for dairy product orders for branches and customer engagement.</p>
-            <p class="text-lg font-medium text-purple-700">Created by <span class="font-bold">Ahmed Mohamed Fekry Bagha</span></p>
-        </div>
-
-        <div class="phone-mockup">
-            <div class="notch"></div>
-            <div class="screen">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">App Features</h2>
-                <div class="feature-grid">
-                    <!-- Branch Features -->
-                    <div class="feature-circle bg-red-500" data-feature="Weekly Orders">Weekly Orders</div>
-                    <div class="feature-circle bg-green-500" data-feature="Product Details">Product Details</div>
-                    <div class="feature-circle bg-yellow-500" data-feature="Branch Tracking">Branch Tracking</div>
-                    <div class="feature-circle bg-blue-500" data-feature="PDF Receipts">PDF Receipts</div>
-
-                    <!-- Customer Features -->
-                    <div class="feature-circle bg-purple-500" data-feature="Product Browsing">Product Browsing</div>
-                    <div class="feature-circle bg-indigo-500" data-feature="Order Placement">Order Placement</div>
-                    <div class="feature-circle bg-pink-500" data-feature="Cash/Visa Pay">Cash/Visa Pay</div>
-                    <div class="feature-circle bg-teal-500" data-feature="Item Returns">Item Returns</div>
-                    <div class="feature-circle bg-orange-500" data-feature="Chatbot Support">Chatbot Support</div>
-                    <!-- New About Info Feature -->
-                    <div class="feature-circle bg-lime-500" data-feature="About Info">About Info</div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="mainlogo2.png" alt="Katilo Factory Logo">
+                </div>
+            </div>
+            <h1>Katilo Factory App</h1>
+            <p class="subtitle">Professional dairy management solution for orders for branches and customer engagement</p>
+            <p class="tagline">Created by <span>Ahmed Mohamed Fekry Bagha</span></p>
+        </header>
+        
+        <div class="phone-section">
+            <div class="phone-mockup">
+                <div class="notch"></div>
+                <div class="screen">
+                    <div class="app-header">
+                        <h2 class="app-title">Katilo Factory</h2>
+                        <p class="app-subtitle">Dairy Management Solution</p>
+                    </div>
+                    
+                    <div class="features-container">
+                        <div class="app-feature" data-feature="Weekly Orders" 
+                             style="--feature-color: #ef4444; --feature-bg: linear-gradient(135deg, #ef4444, #f87171);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <h3 class="app-feature-name">Weekly Orders</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Product Details" 
+                             style="--feature-color: #10b981; --feature-bg: linear-gradient(135deg, #10b981, #34d399);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <h3 class="app-feature-name">Product Details</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Branch Tracking" 
+                             style="--feature-color: #3b82f6; --feature-bg: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="app-feature-name">Branch Tracking</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="PDF Receipts" 
+                             style="--feature-color: #8b5cf6; --feature-bg: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3 class="app-feature-name">PDF Receipts</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Product Browsing" 
+                             style="--feature-color: #0ea5e9; --feature-bg: linear-gradient(135deg, #0ea5e9, #38bdf8);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="app-feature-name">Product Browsing</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Order Placement" 
+                             style="--feature-color: #ec4899; --feature-bg: linear-gradient(135deg, #ec4899, #f472b6);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3 class="app-feature-name">Order Placement</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Cash/Visa Pay" 
+                             style="--feature-color: #f59e0b; --feature-bg: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <h3 class="app-feature-name">Cash/Visa Pay</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Item Returns" 
+                             style="--feature-color: #6366f1; --feature-bg: linear-gradient(135deg, #6366f1, #818cf8);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-undo"></i>
+                            </div>
+                            <h3 class="app-feature-name">Item Returns</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="Chatbot Support" 
+                             style="--feature-color: #10b981; --feature-bg: linear-gradient(135deg, #10b981, #34d399);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3 class="app-feature-name">Chatbot Support</h3>
+                        </div>
+                        
+                        <div class="app-feature" data-feature="About Info" 
+                             style="--feature-color: #8b5cf6; --feature-bg: linear-gradient(135deg, #8b5cf6, #c4b5fd);">
+                            <div class="app-feature-icon">
+                                <i class="fas fa-info"></i>
+                            </div>
+                            <h3 class="app-feature-name">About Info</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="app-footer">
+                        Katilo Factory Mobile App by Ahmed Bagha
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <div class="features-section">
+            <h2 class="section-title">App Features</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-feature="Weekly Orders" 
+                     style="--feature-color: #ef4444; --feature-bg: linear-gradient(135deg, #ef4444, #f87171);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <h3 class="feature-title">Weekly Orders</h3>
+                    </div>
+                    <p class="feature-description">Branches place weekly product orders directly with the main factory.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Product Details" 
+                     style="--feature-color: #10b981; --feature-bg: linear-gradient(135deg, #10b981, #34d399);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3 class="feature-title">Product Details</h3>
+                    </div>
+                    <p class="feature-description">View comprehensive details and specifications for all dairy products.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Branch Tracking" 
+                     style="--feature-color: #3b82f6; --feature-bg: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Branch Tracking</h3>
+                    </div>
+                    <p class="feature-description">View branch locations on integrated maps for logistics coordination.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="PDF Receipts" 
+                     style="--feature-color: #8b5cf6; --feature-bg: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="feature-title">PDF Receipts</h3>
+                    </div>
+                    <p class="feature-description">Download PDF receipts for submitted orders and deliveries.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Product Browsing" 
+                     style="--feature-color: #0ea5e9; --feature-bg: linear-gradient(135deg, #0ea5e9, #38bdf8);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="feature-title">Product Browsing</h3>
+                    </div>
+                    <p class="feature-description">Browse the entire catalog of dairy products with images and details.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Order Placement" 
+                     style="--feature-color: #ec4899; --feature-bg: linear-gradient(135deg, #ec4899, #f472b6);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 class="feature-title">Order Placement</h3>
+                    </div>
+                    <p class="feature-description">Seamlessly place orders specifying quantities and delivery preferences.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Cash/Visa Pay" 
+                     style="--feature-color: #f59e0b; --feature-bg: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3 class="feature-title">Cash/Visa Pay</h3>
+                    </div>
+                    <p class="feature-description">Flexible payment options including cash on delivery and Visa.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Item Returns" 
+                     style="--feature-color: #6366f1; --feature-bg: linear-gradient(135deg, #6366f1, #818cf8);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <h3 class="feature-title">Item Returns</h3>
+                    </div>
+                    <p class="feature-description">Initiate returns for purchased items directly through the app.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="Chatbot Support" 
+                     style="--feature-color: #10b981; --feature-bg: linear-gradient(135deg, #10b981, #34d399);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="feature-title">Chatbot Support</h3>
+                    </div>
+                    <p class="feature-description">Instant customer support through an intelligent chatbot.</p>
+                </div>
+                
+                <div class="feature-card" data-feature="About Info" 
+                     style="--feature-color: #8b5cf6; --feature-bg: linear-gradient(135deg, #8b5cf6, #c4b5fd);">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-info"></i>
+                        </div>
+                        <h3 class="feature-title">About Info</h3>
+                    </div>
+                    <p class="feature-description">Information about Katilo Factory's mission and values.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Professional Dairy Management Solution | Created by Ahmed Mohamed Fekry Bagha</p>
+        </footer>
     </div>
 
     <!-- Feature Details Modal -->
     <div id="featureModal" class="modal-overlay">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h3 id="modalTitle" class="modal-title"></h3>
-            <p id="modalDescription" class="modal-description"></p>
-            <h4 id="modalFlowTitle" class="modal-flow-title"></h4>
-            <ul id="modalFlowList" class="modal-flow-list"></ul>
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title"><i class="fas fa-star"></i> <span>Feature Details</span></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription" class="modal-description"></p>
+                
+                <div class="modal-section">
+                    <h4 class="modal-section-title"><i class="fas fa-user"></i> User Flow</h4>
+                    <ul id="modalFlowList" class="flow-list"></ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -267,153 +874,152 @@
         // Data for each feature, including description and user flow
         const featureDetails = {
             "Weekly Orders": {
-                description: "Allows branches to place their weekly product orders directly with the main factory.",
+                description: "Allows branches to place their weekly product orders directly with the main factory for efficient inventory management.",
                 flow: [
-                    "Log in using branch credentials.",
-                    "Browse the product catalog or select items for weekly orders.",
-                    "Submit the order to the main branch.",
-                    "Access other general support features as needed (e.g., chatbot, return page)."
+                    "Log in using branch credentials",
+                    "Browse the product catalog or select items for weekly orders",
+                    "Submit the order to the main branch",
+                    "Access other general support features as needed"
                 ],
                 userType: "Branch User Flow"
             },
             "Product Details": {
-                description: "Branches can view comprehensive details and specifications for all available dairy products.",
+                description: "Branches can view comprehensive details and specifications for all available dairy products to make informed ordering decisions.",
                 flow: [
-                    "Log in using branch credentials.",
-                    "Navigate to the product catalog section.",
-                    "Select any product to view its detailed information (e.g., ingredients, pricing, availability).",
-                    "Access other general support features as needed (e.g., chatbot, return page)."
+                    "Log in using branch credentials",
+                    "Navigate to the product catalog section",
+                    "Select any product to view its detailed information",
+                    "Access other general support features as needed"
                 ],
                 userType: "Branch User Flow"
             },
             "Branch Tracking": {
                 description: "Enables branches to view their location on an integrated map, facilitating logistics and coordination with the main factory.",
                 flow: [
-                    "Log in using branch credentials.",
-                    "Access the map feature within the app.",
-                    "View current branch location and track delivery routes.",
-                    "Access other general support features as needed (e.g., chatbot, return page)."
+                    "Log in using branch credentials",
+                    "Access the map feature within the app",
+                    "View current branch location and track delivery routes",
+                    "Access other general support features as needed"
                 ],
                 userType: "Branch User Flow"
             },
             "PDF Receipts": {
                 description: "Provides branches with the ability to download PDF receipts for their submitted weekly orders, essential for record-keeping and delivery reference.",
                 flow: [
-                    "Log in using branch credentials.",
-                    "After submitting an order, locate the order history or receipt section.",
-                    "Download the PDF receipt for the desired order.",
-                    "Access other general support features as needed (e.g., chatbot, return page)."
+                    "Log in using branch credentials",
+                    "After submitting an order, locate the order history or receipt section",
+                    "Download the PDF receipt for the desired order",
+                    "Access other general support features as needed"
                 ],
                 userType: "Branch User Flow"
             },
             "Product Browsing": {
                 description: "Regular customers can easily browse the entire catalog of Katilo factory's dairy products, viewing images, descriptions, and prices.",
                 flow: [
-                    "Log in using user credentials (or proceed as a guest).",
-                    "Navigate through various product categories or use the search function.",
-                    "View detailed information for each product.",
-                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                    "Log in using user credentials or proceed as a guest",
+                    "Navigate through various product categories or use search",
+                    "View detailed information for each product",
+                    "Access other general support features as needed"
                 ],
                 userType: "Regular User Flow"
             },
             "Order Placement": {
                 description: "Allows regular customers to seamlessly place orders for their selected products, specifying quantities and delivery preferences.",
                 flow: [
-                    "Log in using user credentials.",
-                    "Browse products and add desired items with quantities to the shopping cart.",
-                    "Proceed to checkout to review the order.",
-                    "Confirm the order and receive a receipt for delivery reference.",
-                    "Track order status in real-time.",
-                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                    "Log in using user credentials",
+                    "Browse products and add desired items to cart",
+                    "Proceed to checkout to review the order",
+                    "Confirm the order and receive a receipt",
+                    "Track order status in real-time"
                 ],
                 userType: "Regular User Flow"
             },
             "Cash/Visa Pay": {
                 description: "Offers flexible and secure payment options for regular customers, including convenient cash on delivery or online payment via Visa.",
                 flow: [
-                    "During the order confirmation process, select your preferred payment method.",
-                    "If paying by card, securely enter your Visa details.",
-                    "Complete the payment to finalize your order.",
-                    "Access other general support features as needed (e.g., branch locator, chatbot, return page)."
+                    "During order confirmation, select preferred payment method",
+                    "If paying by card, securely enter Visa details",
+                    "Complete the payment to finalize order",
+                    "Access other general support features as needed"
                 ],
                 userType: "Regular User Flow"
             },
             "Item Returns": {
                 description: "Simplifies the return process for regular customers, allowing them to initiate returns for purchased items directly through the app.",
                 flow: [
-                    "Access the dedicated 'Returns' page or section in the app.",
-                    "Select the item(s) you wish to return and provide a reason.",
-                    "Follow the app's instructions to complete the return request (e.g., schedule pickup, generate return label).",
-                    "Access other general support features as needed (e.g., branch locator, chatbot, about page)."
+                    "Access the dedicated 'Returns' section in the app",
+                    "Select item(s) to return and provide reason",
+                    "Follow instructions to complete return request",
+                    "Access other general support features as needed"
                 ],
-                userType: "Regular User Flow (or Branch User Flow for general access)"
+                userType: "Regular User Flow"
             },
             "Chatbot Support": {
                 description: "Provides instant customer support and answers to common queries through an intelligent, user-friendly chatbot available to both branches and regular customers.",
                 flow: [
-                    "Access the 'Chatbot Support' feature from the main menu or relevant sections.",
-                    "Type your question or select from pre-defined topics.",
-                    "Receive immediate, automated assistance.",
-                    "If needed, the chatbot can direct you to further support.",
-                    "Access other general support features as needed (e.g., branch locator, return page, about page)."
+                    "Access 'Chatbot Support' from main menu",
+                    "Type question or select from pre-defined topics",
+                    "Receive immediate, automated assistance",
+                    "If needed, chatbot directs to further support"
                 ],
                 userType: "Both User Flows"
             },
             "About Info": {
                 description: `
-                    <p class="rtl-text"><strong>مصنع كاتيلو لمنتجات الألبان:</strong></p>
-                    <p class="rtl-text">نحن مصنع كاتيلو، رائدون في إنتاج وتوزيع منتجات الألبان الطازجة وعالية الجودة. نلتزم بتقديم أفضل المنتجات لعملائنا من خلال استخدام أجود المكونات وأحدث تقنيات الإنتاج.</p>
-                    <p class="rtl-text">يهدف تطبيقنا إلى تسهيل عملية الطلبات بين المصنع والفروع، بالإضافة إلى توفير تجربة تسوق سلسة ومريحة لعملائنا الكرام. يمكنك من خلال التطبيق تصفح منتجاتنا، تقديم الطلبات، تتبعها، والحصول على الدعم الفني بكل سهولة.</p>
-                    <p class="rtl-text">نحن نسعى دائمًا للابتكار وتحسين خدماتنا لضمان رضا جميع المستخدمين.</p>
+                    <div class="rtl-text">
+                        <p><strong>مصنع كاتيلو لمنتجات الألبان:</strong></p>
+                        <p>نحن مصنع كاتيلو، رائدون في إنتاج وتوزيع منتجات الألبان الطازجة وعالية الجودة. نلتزم بتقديم أفضل المنتجات لعملائنا من خلال استخدام أجود المكونات وأحدث تقنيات الإنتاج.</p>
+                        <p>يهدف تطبيقنا إلى تسهيل عملية الطلبات بين المصنع والفروع، بالإضافة إلى توفير تجربة تسوق سلسة ومريحة لعملائنا الكرام. يمكنك من خلال التطبيق تصفح منتجاتنا، تقديم الطلبات، تتبعها، والحصول على الدعم الفني بكل سهولة.</p>
+                        <p>نحن نسعى دائمًا للابتكار وتحسين خدماتنا لضمان رضا جميع المستخدمين.</p>
+                    </div>
                 `,
                 flow: [
-                    "Access the 'About Info' feature from the app's main menu or footer.",
-                    "Read information about Katilo Factory's mission, products, and commitment to quality.",
-                    "Learn about the factory's history and values.",
-                    "Return to the main features or continue browsing the app."
+                    "Access the 'About Info' feature from the app's main menu",
+                    "Read information about Katilo Factory's mission and values",
+                    "Learn about the factory's history and commitment to quality",
+                    "Return to main features or continue browsing"
                 ],
                 userType: "General Information"
             }
         };
 
-        const featureCircles = document.querySelectorAll('.feature-circle');
+        // Get all feature elements (both inside phone and in the feature cards section)
+        const featureCards = document.querySelectorAll('.app-feature, .feature-card');
         const featureModal = document.getElementById('featureModal');
         const modalCloseBtn = document.querySelector('.modal-close');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
-        const modalFlowTitle = document.getElementById('modalFlowTitle');
         const modalFlowList = document.getElementById('modalFlowList');
 
-        // Add event listeners to each feature circle
-        featureCircles.forEach(circle => {
-            circle.addEventListener('click', () => {
-                const featureName = circle.dataset.feature; // Get the feature name from data-feature attribute
+        // Add event listeners to each feature element
+        featureCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const featureName = card.getAttribute('data-feature');
                 const details = featureDetails[featureName];
 
                 if (details) {
-                    modalTitle.textContent = featureName;
-                    // For the Arabic description, set innerHTML directly and add the RTL class
-                    if (featureName === "About Info") {
-                        modalDescription.innerHTML = details.description;
-                        modalDescription.classList.add('rtl-text');
-                    } else {
-                        modalDescription.textContent = details.description;
-                        modalDescription.classList.remove('rtl-text');
-                    }
-
-                    modalFlowTitle.textContent = `User Flow: (${details.userType})`;
-
+                    // Set modal title with feature name
+                    modalTitle.innerHTML = `<i class="fas fa-star"></i> <span>${featureName}</span>`;
+                    
+                    // Set description
+                    modalDescription.innerHTML = details.description;
+                    
                     // Clear previous flow items
                     modalFlowList.innerHTML = '';
+                    
                     // Populate new flow items
-                    details.flow.forEach(step => {
+                    details.flow.forEach((step, index) => {
                         const li = document.createElement('li');
-                        li.textContent = step;
+                        li.innerHTML = `
+                            <div class="flow-number">${index + 1}</div>
+                            <div class="flow-text">${step}</div>
+                        `;
                         modalFlowList.appendChild(li);
                     });
 
                     // Show the modal
                     featureModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
                 }
             });
         });
@@ -421,12 +1027,22 @@
         // Close modal when close button is clicked
         modalCloseBtn.addEventListener('click', () => {
             featureModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
 
         // Close modal when clicking outside the content
         featureModal.addEventListener('click', (event) => {
             if (event.target === featureModal) {
                 featureModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && featureModal.classList.contains('active')) {
+                featureModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         });
     </script>
